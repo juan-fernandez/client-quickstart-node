@@ -1,10 +1,9 @@
-name: Node CI
+name: Scope
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -12,17 +11,15 @@ jobs:
         node-version: [8.x, 10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install dependencies
-      run: npm install
-    - name: Scope for Javascript
-      uses: undefinedlabs/scope-for-javascript-action@1.0.0
-      with:
-        # Command to run your tests
-        command: npm test
-        # Scope DSN
-        dsn: ${{ secrets.SCOPE_DSN }}
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      - name: Scope for Javascript
+        uses: undefinedlabs/scope-for-javascript-action@v1
+        with:
+          # Scope DSN
+          dsn: ${{ secrets.SCOPE_DSN }}
